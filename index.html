@@ -33,6 +33,7 @@ h2{text-align:center;color:var(--primary);margin-bottom:2rem}
 .notification{position:fixed;bottom:120px;left:20px;background:var(--card);padding:15px;border-radius:10px;border:1px solid var(--border);display:none;z-index:1000;animation:fadeIn 0.5s;text-align:center;}
 .notification button{margin-top:10px;padding:8px 15px;border:none;border-radius:20px;cursor:pointer;background:var(--primary);color:#000;font-weight:bold;transition:0.3s}
 .notification button:hover{transform:scale(1.05);box-shadow:var(--glow)}
+.countdown{color:#ff4d4d;font-weight:bold;font-size:1.2rem;margin-top:10px}
 </style></head>
 <body><nav>
 <div class="logo">Harry</div>
@@ -41,6 +42,7 @@ h2{text-align:center;color:var(--primary);margin-bottom:2rem}
 <h1>اصنع موقعك الآن 🚀</h1>
 <p>مواقع احترافية تجلب لك عملاء حقيقيين</p>
 <button class="cta" onclick="go()">ابدأ الآن</button>
+<div class="countdown" id="discount">عرض خاص ينتهي خلال 24:00:00</div>
 </div>
 </header><section>
 <div class="container">
@@ -61,11 +63,7 @@ h2{text-align:center;color:var(--primary);margin-bottom:2rem}
 </section><section>
 <div class="container">
 <h2>آراء العملاء ⭐</h2>
-<div class="grid">
-<div class="card review">"موقع رائع وزاد العملاء عندي"</div>
-<div class="card review">"سرعة وتنفيذ ممتاز"</div>
-<div class="card review">"أفضل مطور تعاملت معه"</div>
-</div>
+<div class="grid" id="reviews"></div>
 </div>
 </section><section>
 <div class="container">
@@ -127,6 +125,39 @@ function showNotif(){
   notif.style.display='block';
   setTimeout(()=>notif.style.display='none',5000);
 }
+
+// Fake reviews system
+const fakeReviews=[
+  '"موقع رائع وزاد العملاء عندي"',
+  '"سرعة وتنفيذ ممتاز"',
+  '"أفضل مطور تعاملت معه"',
+  '"أنصح به بشدة لأي شخص يريد موقع"',
+  '"تجربة احترافية ومميزة"'
+];
+const reviewsContainer=document.getElementById('reviews');
+let reviewIndex=0;
+setInterval(()=>{
+  reviewsContainer.innerHTML='';
+  for(let i=0;i<3;i++){
+    const div=document.createElement('div');
+    div.className='card review';
+    div.innerText=fakeReviews[(reviewIndex+i)%fakeReviews.length];
+    reviewsContainer.appendChild(div);
+  }
+  reviewIndex=(reviewIndex+1)%fakeReviews.length;
+},5000);
+
+// discount countdown
+let discountTime=24*60*60; // 24 hours in seconds
+const discountEl=document.getElementById('discount');
+setInterval(()=>{
+  discountTime--;
+  let h=Math.floor(discountTime/3600).toString().padStart(2,'0');
+  let m=Math.floor((discountTime%3600)/60).toString().padStart(2,'0');
+  let s=(discountTime%60).toString().padStart(2,'0');
+  discountEl.innerText=`عرض خاص ينتهي خلال ${h}:${m}:${s}`;
+  if(discountTime<=0){discountEl.innerText='العرض انتهى!';}
+},1000);
 
 // CTA scroll simulation
 function go(){window.location.href='#'}
