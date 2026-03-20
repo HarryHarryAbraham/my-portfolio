@@ -4,175 +4,238 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Harry - مطور ويب فريلانسر</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --primary: #00ff41;
-      --dark: #0a0a0a;
-      --light: #f0f0f0;
-      --text: #fff;
-    }
-    body.light {
-      --dark: #f0f0f0;
-      --text: #000;
-      --primary: #008000;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--dark);
-      color: var(--text);
-      transition: all 0.5s ease;
-      line-height: 1.6;
-    }
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(10,10,10,0.9);
-      backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-    }
-    .logo { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
-    .nav-links a { color: var(--text); margin-left: 2rem; text-decoration: none; }
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 1rem;
-    }
-    h1 { font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem; }
-    section { padding: 6rem 1rem; max-width: 1100px; margin: 0 auto; }
-    h2 { font-size: 2.5rem; text-align: center; margin-bottom: 2rem; color: var(--primary); }
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-    .skill {
-      background: rgba(255,255,255,0.08);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      border: 1px solid rgba(0,255,65,0.3);
-    }
-    form {
-      max-width: 500px;
-      margin: 2rem auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    input, textarea {
-      padding: 0.9rem;
-      border-radius: 8px;
-      border: 1px solid rgba(0,255,65,0.3);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-family: inherit;
-    }
-    button {
-      background: var(--primary);
-      color: #000;
-      padding: 0.9rem;
-      border: none;
-      border-radius: 50px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,255,65,0.4); }
-    #form-status { text-align: center; font-weight: bold; margin-top: 1rem; }
-    footer { text-align: center; padding: 2rem; font-size: 0.9rem; opacity: 0.7; }
-  </style>
-</head>
-<body>
 
-  <nav>
-    <div class="logo">Harry</div>
-    <div class="nav-links">
-      <a href="#about">عني</a>
-      <a href="#skills">مهارات</a>
-      <a href="#contact">تواصل</a>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            primary: '#00ff41',
+            primaryDark: '#008000',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen font-cairo bg-gray-950 text-gray-100 transition-colors duration-300 dark:bg-gray-50 dark:text-gray-900">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 dark:bg-white/80 backdrop-blur-lg border-b border-gray-800 dark:border-gray-200">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <div class="text-2xl sm:text-3xl font-bold text-primary">Harry</div>
+      
+      <div class="flex items-center gap-6 sm:gap-8">
+        <a href="#about" class="hover:text-primary transition-colors">عني</a>
+        <a href="#skills" class="hover:text-primary transition-colors">مهارات</a>
+        <a href="#contact" class="hover:text-primary transition-colors">تواصل</a>
+        
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="text-2xl focus:outline-none" aria-label="تبديل الثيم">
+          🌙
+        </button>
+      </div>
     </div>
   </nav>
 
-  <header>
-    <h1>مرحباً، أنا Harry</h1>
-    <p>مطور ويب فريلانسر – أبني مواقع حديثة وآمنة من الموبايل فقط</p>
+  <!-- Header / Hero -->
+  <header class="pt-28 pb-20 px-4 sm:pt-36 sm:pb-32 text-center">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-6 leading-tight">
+      مرحباً، أنا Harry
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
+      مطور ويب فريلانسر – أبني مواقع حديثة وآمنة من الموبايل فقط باستخدام Termux
+    </p>
   </header>
 
-  <section id="about">
-    <h2>عني</h2>
-    <p style="max-width:700px; margin:0 auto; text-align:center;">
-      مبتدئ شغوف بالبرمجة، تعلمت HTML/CSS/JS وGit من خلال Termux على الموبايل.
-      هدفي: تقديم خدمات ويب احترافية بأسعار مناسبة.
-    </p>
-  </section>
-
-  <section id="skills">
-    <h2>مهاراتي الحالية</h2>
-    <div class="skills">
-      <div class="skill">HTML5</div>
-      <div class="skill">CSS3 (متقدم)</div>
-      <div class="skill">JavaScript</div>
-      <div class="skill">Git & GitHub</div>
-      <div class="skill">Responsive Design</div>
-      <div class="skill">EmailJS Integration</div>
+  <!-- About -->
+  <section id="about" class="py-16 sm:py-24 bg-black/40 dark:bg-white/40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-primary text-center mb-10">عني</h2>
+      <p class="text-lg sm:text-xl max-w-3xl mx-auto text-center leading-relaxed">
+        مبتدئ شغوف بالبرمجة، تعلمت HTML/CSS/JavaScript وGit من خلال Termux على الموبايل فقط.
+        هدفي تقديم خدمات ويب احترافية بأسعار مناسبة وجودة عالية.
+      </p>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>تواصل معي</h2>
-    <form id="contact-form">
-      <input type="text" id="name" placeholder="اسمك" required />
-      <input type="email" id="email" placeholder="بريدك الإلكتروني" required />
-      <textarea id="message" placeholder="رسالتك..." rows="6" required></textarea>
-      <button type="submit">إرسال الرسالة</button>
-    </form>
-    <p id="form-status"></p>
+  <!-- Skills -->
+  <section id="skills" class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-primary text-center mb-12">مهاراتي الحالية</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
+          HTML5
+        </div>
+        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
+          CSS3 (متقدم)
+        </div>
+        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
+          JavaScript
+        </div>
+        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
+          Git & GitHub
+        </div>
+        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
+          Responsive Design
+        </div>
+        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
+          EmailJS
+        </div>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    © 2026 Harry – تم بناء هذا الموقع باستخدام Termux فقط | wwssaaamm96@gmail.com
+  <!-- Contact Form -->
+  <section id="contact" class="py-16 sm:py-24 bg-black/40 dark:bg-white/40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-xl">
+      <h2 class="text-3xl sm:text-4xl font-bold text-primary text-center mb-10">تواصل معي</h2>
+      
+      <form id="contact-form" class="space-y-6">
+        <input 
+          type="text" 
+          id="name" 
+          placeholder="اسمك" 
+          required 
+          class="w-full p-4 rounded-lg bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-900 focus:outline-none focus:border-primary transition"
+        />
+        
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="بريدك الإلكتروني" 
+          required 
+          class="w-full p-4 rounded-lg bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-900 focus:outline-none focus:border-primary transition"
+        />
+        
+        <textarea 
+          id="message" 
+          placeholder="رسالتك..." 
+          rows="6" 
+          required 
+          class="w-full p-4 rounded-lg bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-900 focus:outline-none focus:border-primary transition"
+        ></textarea>
+        
+        <button 
+          type="submit" 
+          class="w-full bg-primary text-black font-bold py-4 rounded-full hover:bg-green-600 transition transform hover:scale-105"
+        >
+          إرسال الرسالة
+        </button>
+      </form>
+      
+      <p id="form-status" class="mt-6 text-center font-medium min-h-[1.5rem]"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center text-gray-500 dark:text-gray-600 border-t border-gray-800 dark:border-gray-200">
+    © 2026 Harry – wwssaaamm96@gmail.com
   </footer>
 
   <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script>
-    // تهيئة EmailJS بالـ Public Key الخاص بك
+    // EmailJS init
     emailjs.init("yg5xbRo0Vy1qLSiGJ");
 
+    // Form handling + Validation
     const form = document.getElementById("contact-form");
     const status = document.getElementById("form-status");
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
 
+      let isValid = true;
+      status.textContent = "";
+      status.className = "";
+
+      // Reset borders
+      [form.name, form.email, form.message].forEach(el => {
+        el.classList.remove("border-red-500");
+        el.classList.add("border-gray-700", "dark:border-gray-300");
+      });
+
+      // Validation
+      if (form.name.value.trim().length < 2) {
+        form.name.classList.add("border-red-500");
+        status.textContent = "الاسم قصير جدًا (حد أدنى حرفين)";
+        status.className = "text-red-500";
+        isValid = false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(form.email.value.trim())) {
+        form.email.classList.add("border-red-500");
+        status.textContent = "الإيميل غير صالح";
+        status.className = "text-red-500";
+        isValid = false;
+      }
+
+      if (form.message.value.trim().length < 10) {
+        form.message.classList.add("border-red-500");
+        status.textContent = "الرسالة قصيرة جدًا (حد أدنى 10 أحرف)";
+        status.className = "text-red-500";
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Send
       const params = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        message: form.message.value.trim()
       };
 
       emailjs.send("service_adxpme7", "template_njavc7l", params)
         .then(() => {
-          status.style.color = "#00ff41";
           status.textContent = "تم إرسال الرسالة بنجاح! شكراً لك 🦅";
+          status.className = "text-green-500";
           form.reset();
         })
-        .catch((err) => {
-          status.style.color = "red";
+        .catch(err => {
           status.textContent = "حدث خطأ أثناء الإرسال، حاول مرة أخرى";
+          status.className = "text-red-500";
           console.error("EmailJS Error:", err);
         });
+    });
+
+    // Dark/Light Mode with persistence
+    const toggle = document.getElementById("theme-toggle");
+    const html = document.documentElement;
+
+    // Load saved theme
+    if (localStorage.theme === "light" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      html.classList.add("light");
+      toggle.textContent = "☀️";
+    } else {
+      html.classList.remove("light");
+      toggle.textContent = "🌙";
+    }
+
+    toggle.addEventListener("click", () => {
+      if (html.classList.contains("light")) {
+        html.classList.remove("light");
+        toggle.textContent = "🌙";
+        localStorage.theme = "dark";
+      } else {
+        html.classList.add("light");
+        toggle.textContent = "☀️";
+        localStorage.theme = "light";
+      }
     });
   </script>
 
