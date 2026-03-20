@@ -1,243 +1,134 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Harry - مطور ويب فريلانسر</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harry | صمم موقعك الآن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/><style>
+:root{
+--primary:#00ff88;--bg:#0a0a0a;--text:#e0e0e0;--card:rgba(255,255,255,0.05);--border:rgba(0,255,136,0.25);--glow:0 0 20px rgba(0,255,136,0.4);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);transition:0.4s;scroll-behavior:smooth}
+.container{width:min(1200px,90%);margin:auto}
+nav{position:fixed;top:0;left:0;right:0;background:var(--card);backdrop-filter:blur(10px);display:flex;justify-content:space-between;padding:1rem;z-index:1000}
+.logo{color:var(--primary);font-weight:bold}
+header{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
+h1{color:var(--primary);font-size:3rem;text-shadow:var(--glow)}
+.cta{margin-top:20px;padding:15px 25px;background:var(--primary);border:none;border-radius:40px;cursor:pointer;transition:0.3s}
+.cta:hover{transform:scale(1.05);box-shadow:var(--glow)}
+section{padding:5rem 0}
+h2{text-align:center;color:var(--primary);margin-bottom:2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}
+.card{background:var(--card);padding:1.5rem;border-radius:15px;border:1px solid var(--border);text-align:center;transition:0.3s}
+.card:hover{transform:translateY(-10px);box-shadow:var(--glow)}
+.price{font-size:2rem;color:var(--primary)}
+.whatsapp{display:inline-block;margin-top:1rem;background:#25D366;color:#fff;padding:10px 15px;border-radius:30px;text-decoration:none;transition:0.3s}
+.whatsapp:hover{transform:scale(1.05);box-shadow:var(--glow)}
+.review{font-size:0.9rem;opacity:0.9}
+.stat{font-size:2.2rem;color:var(--primary);text-shadow:var(--glow)}
+.whatsapp-float{position:fixed;bottom:20px;left:20px;background:#25D366;color:#fff;padding:15px;border-radius:50%;cursor:pointer;z-index:1000;transition:0.3s}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:var(--glow)}
+.popup{position:fixed;bottom:90px;left:20px;background:#111;padding:15px;border-radius:10px;border:1px solid var(--border);display:none;z-index:1000;animation:fadeIn 0.5s}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.notification{position:fixed;bottom:120px;left:20px;background:var(--card);padding:15px;border-radius:10px;border:1px solid var(--border);display:none;z-index:1000;animation:fadeIn 0.5s;text-align:center;}
+.notification button{margin-top:10px;padding:8px 15px;border:none;border-radius:20px;cursor:pointer;background:var(--primary);color:#000;font-weight:bold;transition:0.3s}
+.notification button:hover{transform:scale(1.05);box-shadow:var(--glow)}
+</style></head>
+<body><nav>
+<div class="logo">Harry</div>
+</nav><header>
+<div>
+<h1>اصنع موقعك الآن 🚀</h1>
+<p>مواقع احترافية تجلب لك عملاء حقيقيين</p>
+<button class="cta" onclick="go()">ابدأ الآن</button>
+</div>
+</header><section>
+<div class="container">
+<h2>الخدمات</h2>
+<div class="grid">
+<div class="card">
+<h3>موقع بسيط</h3>
+<div class="price">$50</div>
+<a class="whatsapp" onclick="track('موقع بسيط')" href="https://wa.me/963938401646?text=أريد موقع بسيط">اطلب</a>
+</div>
+<div class="card">
+<h3>موقع احترافي</h3>
+<div class="price">$120</div>
+<a class="whatsapp" onclick="track('موقع احترافي')" href="https://wa.me/963938401646?text=أريد موقع احترافي">اطلب</a>
+</div>
+</div>
+</div>
+</section><section>
+<div class="container">
+<h2>آراء العملاء ⭐</h2>
+<div class="grid">
+<div class="card review">"موقع رائع وزاد العملاء عندي"</div>
+<div class="card review">"سرعة وتنفيذ ممتاز"</div>
+<div class="card review">"أفضل مطور تعاملت معه"</div>
+</div>
+</div>
+</section><section>
+<div class="container">
+<h2>إحصائياتي</h2>
+<div class="grid">
+<div class="card"><div class="stat" id="clients">0</div>عملاء</div>
+<div class="card"><div class="stat" id="projects">0</div>مشاريع</div>
+</div>
+</div>
+</section><a class="whatsapp-float" onclick="openWhatsApp()">💬</a>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<div class="popup" id="popup">🔔 عميل طلب موقع قبل قليل</div>
+<div class="notification" id="notif"></div><script>
+// counters
+let clients = parseInt(localStorage.getItem('c')) || 15;
+let projects = parseInt(localStorage.getItem('p')) || 25;
+document.getElementById('clients').innerText = clients;
+document.getElementById('projects').innerText = projects;
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+function track(type){
+  clients++;
+  localStorage.setItem('c',clients);
+  document.getElementById('clients').innerText = clients;
+  showPopup('عميل طلب '+type+'!');
+}
 
-  <!-- Tailwind config -->
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            cairo: ['Cairo', 'sans-serif'],
-          },
-          colors: {
-            primary: '#00ff41',
-            primaryDark: '#008000',
-          }
-        }
-      }
-    }
-  </script>
-</head>
-<body class="min-h-screen font-cairo bg-gray-950 text-gray-100 transition-colors duration-300 dark:bg-gray-50 dark:text-gray-900">
+function openWhatsApp(){
+  window.open('https://wa.me/963938401646?text=مرحباً، أريد تصميم موقع', '_blank');
+}
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 dark:bg-white/80 backdrop-blur-lg border-b border-gray-800 dark:border-gray-200">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-      <div class="text-2xl sm:text-3xl font-bold text-primary">Harry</div>
-      
-      <div class="flex items-center gap-6 sm:gap-8">
-        <a href="#about" class="hover:text-primary transition-colors">عني</a>
-        <a href="#skills" class="hover:text-primary transition-colors">مهارات</a>
-        <a href="#contact" class="hover:text-primary transition-colors">تواصل</a>
-        
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" class="text-2xl focus:outline-none" aria-label="تبديل الثيم">
-          🌙
-        </button>
-      </div>
-    </div>
-  </nav>
+function showPopup(msg){
+  const p = document.getElementById('popup');
+  p.innerText='🔔 '+msg;
+  p.style.display='block';
+  setTimeout(()=>p.style.display='none',3000);
+}
 
-  <!-- Header / Hero -->
-  <header class="pt-28 pb-20 px-4 sm:pt-36 sm:pb-32 text-center">
-    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-6 leading-tight">
-      مرحباً، أنا Harry
-    </h1>
-    <p class="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
-      مطور ويب فريلانسر – أبني مواقع حديثة وآمنة من الموبايل فقط باستخدام Termux
-    </p>
-  </header>
+// live fake notifications every 12s
+setInterval(()=>{
+  const services=['موقع بسيط','موقع احترافي','متجر إلكتروني'];
+  const service=services[Math.floor(Math.random()*services.length)];
+  showPopup('عميل طلب '+service+' قبل قليل');
+},12000);
 
-  <!-- About -->
-  <section id="about" class="py-16 sm:py-24 bg-black/40 dark:bg-white/40">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-primary text-center mb-10">عني</h2>
-      <p class="text-lg sm:text-xl max-w-3xl mx-auto text-center leading-relaxed">
-        مبتدئ شغوف بالبرمجة، تعلمت HTML/CSS/JavaScript وGit من خلال Termux على الموبايل فقط.
-        هدفي تقديم خدمات ويب احترافية بأسعار مناسبة وجودة عالية.
-      </p>
-    </div>
-  </section>
+// social proof auto increment
+setInterval(()=>{
+  if(Math.random()>0.6){clients++;localStorage.setItem('c',clients);document.getElementById('clients').innerText=clients;}
+  if(Math.random()>0.7){projects++;localStorage.setItem('p',projects);document.getElementById('projects').innerText=projects;}
+},8000);
 
-  <!-- Skills -->
-  <section id="skills" class="py-16 sm:py-24">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-primary text-center mb-12">مهاراتي الحالية</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
-          HTML5
-        </div>
-        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
-          CSS3 (متقدم)
-        </div>
-        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
-          JavaScript
-        </div>
-        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
-          Git & GitHub
-        </div>
-        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
-          Responsive Design
-        </div>
-        <div class="bg-gray-900 dark:bg-gray-100 p-6 rounded-xl border border-gray-700 dark:border-gray-300 text-center hover:scale-105 transition-transform">
-          EmailJS
-        </div>
-      </div>
-    </div>
-  </section>
+// notification popup persuasion system
+setTimeout(showNotif,3000);
+setInterval(showNotif,18000);
+function showNotif(){
+  const notif = document.getElementById('notif');
+  const messages=['عميل طلب موقع قبل قليل!','عملاء جدد في انتظارك!','طلب موقع جديد تم!'];
+  const msg = messages[Math.floor(Math.random()*messages.length)];
+  notif.innerHTML='🔔 '+msg+'<br><button onclick="openWhatsApp()">تواصل الآن</button><button onclick="notif.style.display=\'none\'" style="background:#444;color:#fff">إغلاق</button>';
+  notif.style.display='block';
+  setTimeout(()=>notif.style.display='none',5000);
+}
 
-  <!-- Contact Form -->
-  <section id="contact" class="py-16 sm:py-24 bg-black/40 dark:bg-white/40">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-xl">
-      <h2 class="text-3xl sm:text-4xl font-bold text-primary text-center mb-10">تواصل معي</h2>
-      
-      <form id="contact-form" class="space-y-6">
-        <input 
-          type="text" 
-          id="name" 
-          placeholder="اسمك" 
-          required 
-          class="w-full p-4 rounded-lg bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-900 focus:outline-none focus:border-primary transition"
-        />
-        
-        <input 
-          type="email" 
-          id="email" 
-          placeholder="بريدك الإلكتروني" 
-          required 
-          class="w-full p-4 rounded-lg bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-900 focus:outline-none focus:border-primary transition"
-        />
-        
-        <textarea 
-          id="message" 
-          placeholder="رسالتك..." 
-          rows="6" 
-          required 
-          class="w-full p-4 rounded-lg bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-900 focus:outline-none focus:border-primary transition"
-        ></textarea>
-        
-        <button 
-          type="submit" 
-          class="w-full bg-primary text-black font-bold py-4 rounded-full hover:bg-green-600 transition transform hover:scale-105"
-        >
-          إرسال الرسالة
-        </button>
-      </form>
-      
-      <p id="form-status" class="mt-6 text-center font-medium min-h-[1.5rem]"></p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-12 text-center text-gray-500 dark:text-gray-600 border-t border-gray-800 dark:border-gray-200">
-    © 2026 Harry – wwssaaamm96@gmail.com
-  </footer>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-  <script>
-    // EmailJS init
-    emailjs.init("yg5xbRo0Vy1qLSiGJ");
-
-    // Form handling + Validation
-    const form = document.getElementById("contact-form");
-    const status = document.getElementById("form-status");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      let isValid = true;
-      status.textContent = "";
-      status.className = "";
-
-      // Reset borders
-      [form.name, form.email, form.message].forEach(el => {
-        el.classList.remove("border-red-500");
-        el.classList.add("border-gray-700", "dark:border-gray-300");
-      });
-
-      // Validation
-      if (form.name.value.trim().length < 2) {
-        form.name.classList.add("border-red-500");
-        status.textContent = "الاسم قصير جدًا (حد أدنى حرفين)";
-        status.className = "text-red-500";
-        isValid = false;
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(form.email.value.trim())) {
-        form.email.classList.add("border-red-500");
-        status.textContent = "الإيميل غير صالح";
-        status.className = "text-red-500";
-        isValid = false;
-      }
-
-      if (form.message.value.trim().length < 10) {
-        form.message.classList.add("border-red-500");
-        status.textContent = "الرسالة قصيرة جدًا (حد أدنى 10 أحرف)";
-        status.className = "text-red-500";
-        isValid = false;
-      }
-
-      if (!isValid) return;
-
-      // Send
-      const params = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        message: form.message.value.trim()
-      };
-
-      emailjs.send("service_adxpme7", "template_njavc7l", params)
-        .then(() => {
-          status.textContent = "تم إرسال الرسالة بنجاح! شكراً لك 🦅";
-          status.className = "text-green-500";
-          form.reset();
-        })
-        .catch(err => {
-          status.textContent = "حدث خطأ أثناء الإرسال، حاول مرة أخرى";
-          status.className = "text-red-500";
-          console.error("EmailJS Error:", err);
-        });
-    });
-
-    // Dark/Light Mode with persistence
-    const toggle = document.getElementById("theme-toggle");
-    const html = document.documentElement;
-
-    // Load saved theme
-    if (localStorage.theme === "light" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      html.classList.add("light");
-      toggle.textContent = "☀️";
-    } else {
-      html.classList.remove("light");
-      toggle.textContent = "🌙";
-    }
-
-    toggle.addEventListener("click", () => {
-      if (html.classList.contains("light")) {
-        html.classList.remove("light");
-        toggle.textContent = "🌙";
-        localStorage.theme = "dark";
-      } else {
-        html.classList.add("light");
-        toggle.textContent = "☀️";
-        localStorage.theme = "light";
-      }
-    });
-  </script>
-
-</body>
+// CTA scroll simulation
+function go(){window.location.href='#'}
+</script></body>
 </html>
