@@ -3,19 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harry - مطور ويب</title>
+    <title>Harry - مطور ويب فريلانسر</title>
     <style>
-        body { font-family: Arial; background: #0a0a0a; color: #0f0; text-align: center; padding: 50px; }
-        h1 { color: #00ff00; }
-        p { font-size: 18px; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body { 
+            font-family: 'Cairo', Arial; 
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a); 
+            color: #0f0; 
+            margin: 0; 
+            padding: 0; 
+            text-align: center; 
+        }
+        header { background: #000; padding: 40px 20px; }
+        h1 { font-size: 2.5em; margin: 0; color: #00ff41; text-shadow: 0 0 10px #00ff41; }
+        section { padding: 40px 20px; }
+        .skills { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .skill { background: #1a1a1a; padding: 15px 25px; border-radius: 50px; font-weight: bold; }
+        footer { background: #000; padding: 30px; }
+        a { color: #00ff41; text-decoration: none; }
     </style>
 </head>
 <body>
-    <h1>👋 مرحبا! أنا Harry</h1>
-    <p>مبتدئ في البرمجة • جاهز للفريلانس بعد ٩ أشهر 🦅</p>
-    <p>هذا أول موقعي من الموبايل فقط!</p>
-    <p>🚀 Termux + Python + HTML = قوة</p>
-    <hr>
-    <p</p>
+    <header>
+        <h1>👋 مرحبا! أنا Harry</h1>
+        <p>مطور ويب • جاهز للفريلانس 🦅</p>
+    </header>
+
+    <section>
+        <h2>عني</h2>
+        <p>مبتدئ في البرمجة من الموبايل باستخدام Termux. تعلمت HTML + CSS + Python في أيام قليلة وأبني مواقع آمنة واحترافية.</p>
+    </section>
+
+    <section>
+        <h2>مهاراتي</h2>
+        <div class="skills">
+            <div class="skill">HTML5</div>
+            <div class="skill">CSS3</div>
+            <div class="skill">JavaScript (قريباً)</div>
+            <div class="skill">Python</div>
+            <div class="skill">Git & GitHub</div>
+            <div class="skill">Responsive Design</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>اتصل بي</h2>
+        <p>📧 <a href="mailto:Haallo@gmail.com">Haallo@gmail.com</a></p>
+        <p>🔗 <a href="https://github.com/HarryHarr" target="_blank">GitHub</a></p>
+    </section>
+
+    <footer>
+        <p>© 2026 Harry - أول موقعي من Termux فقط 🚀</p>
+    </footer>
 </body>
 </html>
